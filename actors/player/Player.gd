@@ -66,6 +66,7 @@ func _begin_drag(position: Vector2):
 func _end_drag(position: Vector2):
 	shake_timer.stop()
 	animated_sprite.position.x = 0 # reset sprite from shaking
+	animated_sprite.animation = "idle"
 	is_dragging = false
 	
 	var drag_delta = position - start_drag_pos
@@ -75,13 +76,13 @@ func _end_drag(position: Vector2):
 	if force < LAUNCH_FORCE_RANGE.x:
 		return;
 	
-	animated_sprite.animation = "flying"
-	
-	_launch(direction, force);
+	launch(direction, force);
 
-func _launch(direction: Vector2, force: float):
+func launch(direction: Vector2, force: float):
 	if force < LAUNCH_FORCE_RANGE.x:
 		return
+	
+	animated_sprite.animation = "flying"
 	
 	velocity = direction * force
 
@@ -92,4 +93,7 @@ func _on_AnimatedSprite_animation_finished():
 
 
 func _on_ShakeTimer_timeout():
-	animated_sprite.position.x = randf() * 2
+	if animated_sprite.position.x == 0:
+		animated_sprite.position.x = .5
+	
+	animated_sprite.position.x = -animated_sprite.position.x

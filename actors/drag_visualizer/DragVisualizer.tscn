@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://actors/drag_visualizer/DragVisualizer.gd" type="Script" id=1]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, -0.38961, 0, 0, Vector2( 1, 0 ), -2.45455, 0.0, 0, 0 ]
 
 [node name="DragVisualizer" type="CanvasLayer"]
 script = ExtResource( 1 )
 line_node_path = NodePath("Line2D")
 
 [node name="Line2D" type="Line2D" parent="."]
+width_curve = SubResource( 1 )
+default_color = Color( 0.780392, 0.811765, 0.866667, 1 )
+begin_cap_mode = 2
+end_cap_mode = 2
