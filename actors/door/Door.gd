@@ -15,3 +15,8 @@ func open():
 	collider.disabled = true
 	animated_sprite.play("open")
 	open_audio.play()
+
+func close():
+	collider.disabled = false
+	animated_sprite.play("open", true)
+	open_audio.play() # TODO: Close sound?
