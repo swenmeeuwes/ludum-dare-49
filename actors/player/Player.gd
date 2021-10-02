@@ -44,9 +44,6 @@ func _ready():
 	idle_collider_initial_y = 0
 
 func _input(event):
-	if velocity.length() > 0:
-		return;
-	
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT:
 			if event.pressed:
@@ -91,19 +88,26 @@ func _physics_process(delta):
 	var drag_multiplier = 1.0 - DRAG * delta
 	velocity *= drag_multiplier
 
-func _begin_drag(position: Vector2):
-	shake_timer.start()
+func _begin_drag(evt_position: Vector2):
 	is_dragging = true
+	start_drag_pos = evt_position;
+	
+	if velocity.length() > 0:
+		return
+	
+	shake_timer.start()
 	animated_sprite.animation = "launching"
-	start_drag_pos = position;
 
-func _end_drag(position: Vector2):
+func _end_drag(evt_position: Vector2):
+	if velocity.length() > 0:
+		return
+	
 	shake_timer.stop()
 	animated_sprite.position.x = 0 # reset sprite from shaking
 	animated_sprite.animation = "idle"
 	is_dragging = false
 	
-	var drag_delta = position - start_drag_pos
+	var drag_delta = evt_position - start_drag_pos
 	var direction = -drag_delta.normalized() # Invert it as we want a 'slingshot' interaction
 	var force = clamp(drag_delta.length() * LAUNCH_FORCE_FACTOR, 0, LAUNCH_FORCE_RANGE.y)
 	
@@ -139,7 +143,11 @@ func respawn():
 
 func _on_AnimatedSprite_animation_finished():
 	if animated_sprite.animation == "landing":
-		animated_sprite.animation = "idle"
+		if is_dragging:
+			shake_timer.start()
+			animated_sprite.animation = "launching"
+		else:
+			animated_sprite.animation = "idle"
 
 func _on_ShakeTimer_timeout():
 	if animated_sprite.position.x == 0:
