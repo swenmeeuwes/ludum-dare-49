@@ -4,6 +4,8 @@ export (NodePath) var door_path
 
 var animated_sprite: AnimatedSprite
 var collider: CollisionShape2D
+var press_audio: AudioStreamPlayer2D
+
 var door
 
 var pressed = false
@@ -11,6 +13,8 @@ var pressed = false
 func _ready():
 	animated_sprite = $AnimatedSprite
 	collider = $CollisionShape2D
+	press_audio = $PressAudio
+	
 	door = get_node(door_path)
 	
 	animated_sprite.play("default")
@@ -20,6 +24,8 @@ func _press():
 	
 	animated_sprite.play("press")
 	pressed = true
+	
+	press_audio.play()
 	
 	if door:
 		door.open()

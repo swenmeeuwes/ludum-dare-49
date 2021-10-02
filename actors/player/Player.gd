@@ -5,6 +5,8 @@ var collider: CollisionShape2D
 var shake_timer: Timer
 var hurt_timer: Timer
 var hurt_tween: Tween
+var jump_audio: AudioStreamPlayer2D
+var hit_audio: AudioStreamPlayer2D
 
 var collider_initial_x = 0
 
@@ -27,6 +29,8 @@ func _ready():
 	shake_timer = $ShakeTimer
 	hurt_timer = $HurtTimer
 	hurt_tween = $HurtTween
+	jump_audio = $JumpAudio
+	hit_audio = $HitAudio
 	
 	animated_sprite.animation = "idle"
 	collider.disabled = true
@@ -94,13 +98,14 @@ func _end_drag(position: Vector2):
 	if force < LAUNCH_FORCE_RANGE.x:
 		return;
 	
-	launch(direction, force);
+	launch(direction, force)
 
 func launch(direction: Vector2, force: float):
 	if force < LAUNCH_FORCE_RANGE.x:
 		return
 	
 	animated_sprite.animation = "flying"
+	jump_audio.play()
 	
 	velocity = direction * force
 
@@ -117,6 +122,8 @@ func respawn():
 		Color(1, 1, 1, 1), Color(1, 1, 1, 0), .2, Tween.TRANS_BOUNCE)
 	hurt_tween.start()
 	hurt_timer.start()
+	
+	hit_audio.play()
 
 func _on_AnimatedSprite_animation_finished():
 	if animated_sprite.animation == "landing":

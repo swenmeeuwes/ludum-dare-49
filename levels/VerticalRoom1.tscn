@@ -50,3 +50,31 @@ position = Vector2( 160, 192 )
 
 [node name="Spikes4" parent="SpikeContainer" instance=ExtResource( 4 )]
 position = Vector2( 176, 192 )
+
+[node name="Spikes5" parent="SpikeContainer" instance=ExtResource( 4 )]
+position = Vector2( 48, -144 )
+rotation = -3.14159
+
+[node name="Spikes6" parent="SpikeContainer" instance=ExtResource( 4 )]
+position = Vector2( 64, -144 )
+rotation = -3.14159
+
+[node name="Spikes7" parent="SpikeContainer" instance=ExtResource( 4 )]
+position = Vector2( 80, -144 )
+rotation = -3.14159
+
+[node name="Spikes8" parent="SpikeContainer" instance=ExtResource( 4 )]
+position = Vector2( 216, -112 )
+rotation = -3.14159
+
+[node name="Spikes9" parent="SpikeContainer" instance=ExtResource( 4 )]
+position = Vector2( 232, -112 )
+rotation = -3.14159
+
+[node name="Spikes10" parent="SpikeContainer" instance=ExtResource( 4 )]
+position = Vector2( 256, -18 )
+rotation = -3.14159
+
+[node name="Spikes11" parent="SpikeContainer" instance=ExtResource( 4 )]
+position = Vector2( 368, -2 )
+rotation = -3.14159
