@@ -1,7 +1,5 @@
 extends KinematicBody2D
 
-onready var screen_size = get_viewport_rect().size
-
 var animated_sprite: AnimatedSprite
 var collider: CollisionShape2D
 var shake_timer: Timer
@@ -40,6 +38,12 @@ func _input(event):
 func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)
 	if collision and velocity != Vector2.ZERO:
+		if collision.collider.has_method("action"):
+			collision.collider.action()
+		
+		if collision.collider.has_method("modify_velocity"):
+			velocity = collision.collider.modify_velocity(velocity, collision)
+		else:
 			animated_sprite.animation = "landing"
 			animated_sprite.rotation = (-collision.normal.tangent()).angle()
 			velocity = Vector2.ZERO
@@ -54,8 +58,6 @@ func _physics_process(delta):
 	
 	var drag_multiplier = 1.0 - DRAG * delta
 	velocity *= drag_multiplier
-	
-	position.x = wrapf(position.x, 0, screen_size.x)
 
 func _begin_drag(position: Vector2):
 	shake_timer.start()
@@ -86,11 +88,9 @@ func launch(direction: Vector2, force: float):
 	
 	velocity = direction * force
 
-
 func _on_AnimatedSprite_animation_finished():
 	if animated_sprite.animation == "landing":
 		animated_sprite.animation = "idle"
-
 
 func _on_ShakeTimer_timeout():
 	if animated_sprite.position.x == 0:

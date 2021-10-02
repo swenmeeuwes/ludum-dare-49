@@ -76,12 +76,15 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=13]
 radius = 3.99178
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"player",
+]]
+z_index = 1000
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 12 )
-animation = "launching"
+animation = "flying"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

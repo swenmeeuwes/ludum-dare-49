@@ -1,4 +1,4 @@
-extends Node2D
+extends Room
 
 export (PackedScene) var player_scene
 export (NodePath) var player_spawn_path
@@ -22,6 +22,8 @@ func _ready():
 func _spawn_player():
 	player = player_scene.instance()
 	add_child(player)
+	
+	RoomManager.register_player(player)
 	
 	player.position = player_spawn.position
 	player.launch(Vector2.UP.rotated(-.05 * PI), 175)
