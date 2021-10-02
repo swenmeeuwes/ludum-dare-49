@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 const LAUNCH_FORCE_FACTOR = 4
-const DRAG_LENGTH_RANGE = Vector2(50 / LAUNCH_FORCE_FACTOR, 200 / LAUNCH_FORCE_FACTOR)
+const DRAG_LENGTH_RANGE = Vector2(65 / LAUNCH_FORCE_FACTOR, 150 / LAUNCH_FORCE_FACTOR)
 
 export (NodePath) var line_node_path
 var line: Line2D
