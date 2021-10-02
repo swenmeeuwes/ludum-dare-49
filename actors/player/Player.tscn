@@ -85,6 +85,7 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 12 )
 animation = "flying"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -94,5 +95,13 @@ shape = SubResource( 13 )
 [node name="ShakeTimer" type="Timer" parent="."]
 wait_time = 0.06
 
+[node name="HurtTween" type="Tween" parent="."]
+repeat = true
+playback/repeat = true
+
+[node name="HurtTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="ShakeTimer" to="." method="_on_ShakeTimer_timeout"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]

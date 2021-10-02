@@ -1,13 +1,17 @@
 extends Node2D
 
+export (NodePath) var door_path
+
 var animated_sprite: AnimatedSprite
 var collider: CollisionShape2D
+var door
 
 var pressed = false
 
 func _ready():
 	animated_sprite = $AnimatedSprite
 	collider = $CollisionShape2D
+	door = get_node(door_path)
 	
 	animated_sprite.play("default")
 
@@ -16,6 +20,9 @@ func _press():
 	
 	animated_sprite.play("press")
 	pressed = true
+	
+	if door:
+		door.open()
 
 func action():
 	_press()

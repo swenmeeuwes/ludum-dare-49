@@ -3,22 +3,30 @@ extends KinematicBody2D
 var animated_sprite: AnimatedSprite
 var collider: CollisionShape2D
 var shake_timer: Timer
+var hurt_timer: Timer
+var hurt_tween: Tween
 
 var collider_initial_x = 0
 
 const GRAVITY = 200
 const DRAG = 0.01
-const LAUNCH_FORCE_RANGE = Vector2(100, 300)
-const LAUNCH_FORCE_FACTOR = 6
+const LAUNCH_FORCE_RANGE = Vector2(50, 200)
+const LAUNCH_FORCE_FACTOR = 4
 
 var velocity = Vector2()
 var start_drag_pos = Vector2()
 var is_dragging = false
 
+var last_safe_room
+var last_safe_position
+var last_safe_rotation
+
 func _ready():
 	animated_sprite = $AnimatedSprite
 	collider = $CollisionShape2D
 	shake_timer = $ShakeTimer
+	hurt_timer = $HurtTimer
+	hurt_tween = $HurtTween
 	
 	animated_sprite.animation = "idle"
 	collider.disabled = true
@@ -38,6 +46,10 @@ func _input(event):
 func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)
 	if collision and velocity != Vector2.ZERO:
+		if collision.collider.is_in_group("hurtful"):
+			respawn()
+			return
+		
 		if collision.collider.has_method("action"):
 			collision.collider.action()
 		
@@ -48,6 +60,10 @@ func _physics_process(delta):
 			animated_sprite.rotation = (-collision.normal.tangent()).angle()
 			velocity = Vector2.ZERO
 			collider.disabled = true
+			
+			last_safe_position = position
+			last_safe_rotation = animated_sprite.rotation
+			last_safe_room = RoomManager.get_current_room()
 	
 	if velocity.length() > 0:
 		velocity.y += GRAVITY * delta
@@ -88,6 +104,20 @@ func launch(direction: Vector2, force: float):
 	
 	velocity = direction * force
 
+func respawn():
+	RoomManager.set_room(last_safe_room)
+	position = last_safe_position
+	animated_sprite.rotation = last_safe_rotation
+	animated_sprite.animation = "idle"
+	velocity = Vector2.ZERO
+	collider.disabled = false
+	
+	hurt_tween.remove_all()
+	hurt_tween.interpolate_property(animated_sprite, "self_modulate",
+		Color(1, 1, 1, 1), Color(1, 1, 1, 0), .2, Tween.TRANS_BOUNCE)
+	hurt_tween.start()
+	hurt_timer.start()
+
 func _on_AnimatedSprite_animation_finished():
 	if animated_sprite.animation == "landing":
 		animated_sprite.animation = "idle"
@@ -97,3 +127,7 @@ func _on_ShakeTimer_timeout():
 		animated_sprite.position.x = .5
 	
 	animated_sprite.position.x = -animated_sprite.position.x
+
+func _on_HurtTimer_timeout():
+	hurt_tween.seek(0)
+	hurt_tween.remove_all()

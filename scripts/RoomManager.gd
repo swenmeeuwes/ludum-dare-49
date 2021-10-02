@@ -7,6 +7,9 @@ var current_camera: Camera2D
 func register_player(value):
 	player = value
 
+func get_current_room():
+	return current_room
+
 func set_room(value):
 	current_room = value
 	set_camera(current_room.get_camera())

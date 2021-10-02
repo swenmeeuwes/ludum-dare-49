@@ -46,7 +46,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 7.02262, 6.01845 )
+extents = Vector2( 7.02262, 3.91621 )
 
 [node name="Button" type="StaticBody2D"]
 script = ExtResource( 3 )
