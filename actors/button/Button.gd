@@ -42,12 +42,18 @@ func _ready():
 	animated_sprite.play("default")
 
 func reset():
+	if !pressed:
+		return
+	
 	collider.disabled = false
 	
 	animated_sprite.play("press", true)
 	pressed = false
 
 func press():
+	if pressed:
+		return
+	
 	collider.disabled = true
 	
 	animated_sprite.play("press")

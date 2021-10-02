@@ -200,6 +200,7 @@ cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
 show_collision = true
 format = 1
+tile_data = PoolIntArray( -65536, 0, 0 )
 
 [node name="DragVisualizer" parent="." instance=ExtResource( 3 )]
 
