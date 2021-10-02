@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://actors/drag_visualizer/DragVisualizer.gd" type="Script" id=1]
+
+[node name="DragVisualizer" type="CanvasLayer"]
+script = ExtResource( 1 )
+line_node_path = NodePath("Line2D")
+
+[node name="Line2D" type="Line2D" parent="."]
