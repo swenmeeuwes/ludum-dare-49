@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://screens/intro/IntroScreen.gd" type="Script" id=1]
+[ext_resource path="res://screens/outro/OutroScreen.gd" type="Script" id=1]
 [ext_resource path="res://assets/Scientist_Aftermath_Portrait.png" type="Texture" id=2]
 [ext_resource path="res://assets/UI_Panel.png" type="Texture" id=3]
 [ext_resource path="res://assets/Outro_Background.png" type="Texture" id=4]

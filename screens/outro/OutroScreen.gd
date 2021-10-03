@@ -3,7 +3,7 @@ extends Control
 const TEXTS = [
 	"Well...",
 	"Atleast that is not our problem anymore.",
-	"Did you have a look at the new hires?",
+	"Did you take a look at the new hires?",
 	"- The End -\nThanks for playing!"
 ]
 
