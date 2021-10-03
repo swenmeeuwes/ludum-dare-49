@@ -131,7 +131,8 @@ func respawn():
 	rotation = last_safe_rotation
 	animated_sprite.animation = "idle"
 	velocity = Vector2.ZERO
-	flying_collider.disabled = false
+	flying_collider.disabled = true
+	idle_collider.disabled = false
 	
 	hurt_tween.remove_all()
 	hurt_tween.interpolate_property(animated_sprite, "self_modulate",
