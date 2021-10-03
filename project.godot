@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ludum-dare-49"
-run/main_scene="res://levels/Main.tscn"
+run/main_scene="res://screens/intro/IntroScreen.tscn"
 config/icon="res://icon.png"
 
 [autoload]

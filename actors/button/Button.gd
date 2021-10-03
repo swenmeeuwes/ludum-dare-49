@@ -78,6 +78,6 @@ func action():
 
 func modify_velocity(velocity: Vector2, collision: KinematicCollision2D):
 	var vel_bounced = velocity.bounce(collision.normal)
-	vel_bounced = vel_bounced.normalized() * 50
+	vel_bounced = vel_bounced.normalized() * (vel_bounced.length() * .85)
 	
 	return vel_bounced

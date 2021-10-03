@@ -21,7 +21,7 @@ func _input(event):
 				_end_drag(event.position)
 	
 	if event is InputEventMouseMotion:
-		if Input.is_action_pressed("start_drag"):
+		if Input.is_action_pressed("start_drag") and start_drag_pos != null:
 			line.clear_points()
 			var drag_delta = event.position - start_drag_pos
 			if (drag_delta.length() > DRAG_LENGTH_RANGE.x):

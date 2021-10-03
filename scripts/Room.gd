@@ -28,5 +28,5 @@ func get_camera():
 	return camera
 
 func _on_Area2D_body_entered(body: Node):
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and area.overlaps_body(body):
 		RoomManager.set_room(self)
