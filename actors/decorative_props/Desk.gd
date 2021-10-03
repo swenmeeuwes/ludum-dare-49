@@ -25,7 +25,7 @@ func _on_Area2D_body_entered(body):
 	
 	is_destroyed = true
 	
-	collider.disabled = true
+#	collider.disabled = true
 	explosion_audio.play()
 	
 	fade_tween.interpolate_property(sprite, "self_modulate", Color(1, 1, 1, 1), Color(1, 1, 1, 0), .35)
